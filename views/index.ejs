@@ -72,9 +72,17 @@
                         <%} %>
 
             </div>
-            <div class="inputsName">
-                <label for="playerX">Computer Name</label>
+            <div class="inputsName ">
+                <label for="playerX" id="secondNameLabel">Computer Name</label>
                 <input type="text" name="playerO" id="playerO" value="Computer">
+            </div>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-info active" style="background-color: #004984; color:white;">
+                    <input type="radio" name="options" id="withComputer" autocomplete="off" checked> 1 Player
+                </label>
+                <label class="btn btn-info" id="twoPlayerGame" style="background-color: #004984; color:white;">
+                    <input type="radio" name="options" autocomplete="off"> 2 Player
+                </label>
             </div>
             <div class="inputsName">
                 <input type="submit" value="Play" id="playBtn">

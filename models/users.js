@@ -1,80 +1,83 @@
-const { User, Score } = require('./schema')
-const { setUser } = require('../services/oauth')
-const { json } = require('body-parser')
+const { con } = require('./schema');
+const { setUser } = require('../services/oauth');
+const { json } = require('body-parser');
 
-async function createUser (req, res) {
-  const { first_name, last_name, email, password } = req.body
-
-  const newCreate = await User.create({
-    first_name,
-    last_name,
-    email,
-    password
-  })
-  res
-    .status(201)
-    .send(
-      `<script>alert("User Created Successfully. Id = ${newCreate.email}"); window.location.href = "/";</script>`
-    )
-}
-
-async function createScore (req, res) {
-  // const { first_name, dateTime, result } = req.body
-  // console.log('Received data:', { first_name, dateTime, result })
-  const id = req.params.id
-  let { first_name, dateTime, result } = req.body
-
-  let newCreateScore = await Score.create({
-    playerId: id,
-    name: first_name,
-    dateTime: dateTime,
-    result: result
-  })
-  res.status(201).json({ record: newCreateScore })
-}
-
-async function getScore (req, res) {
-  const { id } = req.params
+async function createUser(req, res) {
+  const { first_name, last_name, email, password } = req.body;
 
   try {
-    // Attempt to find the user based on email and password
-    const result = await Score.find({ playerId: id })
+    const [rows] = await con.execute(
+      'INSERT INTO users (Name, email, password) VALUES (?, ?, ?)',
+      [`${first_name} ${last_name}`, email, password]
+    );
 
-    if (!result) {
-      // If user not found, handle the login failure
-      return res.status(401).json({ status: false, result: 'not found' })
-    }
-    return res.json({ result: result })
+    res
+      .status(201)
+      .send(
+        `<script>alert("User Created Successfully. Id = ${email}"); window.location.href = "/";</script>`
+      );
   } catch (error) {
-    // Handle any errors that occurred during the findOne() operation or session management
-    console.error('Error logging in:', error)
-    return res.status(500).send('Internal server error')
+    console.error('Error creating user:', error);
+    res.status(500).send('Internal server error');
   }
 }
 
-async function loginUser (req, res) {
-  const { email, password } = req.body
+async function createScore(req, res) {
+  const id = req.params.id;
+  let { first_name, dateTime, result } = req.body;
 
   try {
-    // Attempt to find the user based on email and password
-    const result = await User.findOne({ email: email, password: password })
+    const [rows] = await con.execute(
+      'INSERT INTO scoreSchema (name, dateTime, result, playerId) VALUES (?, ?, ?, ?)',
+      [first_name, dateTime, result, id]
+    );
 
-    if (!result) {
-      // If user not found, handle the login failure
+    console.log(rows);
+    
+
+    res.status(201).json({ record: { name: first_name, dateTime, result, playerId: id } });
+  } catch (error) {
+    console.error('Error creating score:', error);
+    res.status(500).send('Internal server error');
+  }
+}
+
+async function getScore(req, res) {
+  const { id } = req.params;
+
+  try {
+    const [rows] = await con.execute('SELECT * FROM scoreSchema WHERE playerId = ?', [id]);
+
+    if (rows.length === 0) {
+      return res.status(401).json({ status: false, result: 'not found' });
+    }
+    return res.json({ result: rows });
+  } catch (error) {
+    console.error('Error getting scores:', error);
+    return res.status(500).send('Internal server error');
+  }
+}
+
+async function loginUser(req, res) {
+  const { email, password } = req.body;
+
+  try {
+    const [rows] = await con.execute('SELECT * FROM users WHERE email = ? AND password = ?', [email, password]);
+
+    if (rows.length === 0) {
       return res
         .status(401)
         .send(
           `<script>alert("email or password is not correct"); window.location.href = "/";</script>`
-        )
+        );
     }
-    const token = setUser(result)
-    res.cookie('uid', token, { httpOnly: true })
-    return res.redirect('/')
+    const token = setUser(rows);    
+    res.cookie('uid', token, { httpOnly: true });
+    return res.redirect('/');
   } catch (error) {
-    // Handle any errors that occurred during the findOne() operation or session management
-    console.error('Error logging in:', error)
-    return res.status(500).send('Internal server error')
+    console.error('Error logging in:', error);
+    return res.status(500).send('Internal server error');
   }
 }
 
-module.exports = { createUser, loginUser, createScore, getScore }
+module.exports = { createUser, loginUser, createScore, getScore };

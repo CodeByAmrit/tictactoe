@@ -12,6 +12,9 @@ const mainLogo = document.getElementById('mainLogo')
 const gameDiv = document.getElementById('gameDiv')
 const reloadBtn = document.getElementById('reload_btn')
 const homeBtn = document.getElementById('home_btn')
+const twoPlayerGame = document.getElementById('twoPlayerGame')
+const withComputer = document.getElementById('withComputer')
+let bot = true;
 
 let recordCounter = 1
 
@@ -68,8 +71,10 @@ async function makeMove (element, index) {
       playerNameShow.textContent = `Turn: ${
         currentPlayer === 'X' ? playerXName : playerOName
       }`
-      if (currentPlayer === 'O') {
-        await computerMove()
+      if (bot){
+        if (currentPlayer === 'O') {
+          await computerMove()
+        }
       }
     }
   }
@@ -189,3 +194,12 @@ async function getScoreTable (id) {
     })
   }
 }
+
+twoPlayerGame.addEventListener("click", (event)=>{
+  document.getElementById("secondNameLabel").innerHTML = "Opponent Name";
+  bot = false;
+})
+withComputer.addEventListener("click", (event)=>{
+  document.getElementById("secondNameLabel").innerText = "Computer Name";
+  bot = true;
+})

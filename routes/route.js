@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { restrictToLogin, singout } = require('../middleware/auth')
+const { restrictToLogin } = require('../middleware/auth')
 const {
   createUser,
   loginUser,
@@ -13,6 +13,7 @@ router.get('/logout', (req, res) => {
   res.clearCookie('uid')
   res.redirect('/')
 })
+
 router.get('/', checkLogin, async (req, res) => {
   const login_status = { status: req.login_status }
   // console.log(req.user)

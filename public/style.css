@@ -164,7 +164,13 @@ body {
 .inputsName {
     display: flex;
     flex-direction: column;
+
 }
+
+::placeholder {
+    color: hsl(0, 0%, 70%);
+}
+
 
 input[type=text],
 select {
@@ -172,11 +178,12 @@ select {
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
-    background-color: #002f56 ;
-    border: none;
+    background-color: #002f56;
+    border: 0px solid #0dcaf0;
+    ;
     border-radius: 4px;
     box-sizing: border-box;
-    color: white ;
+    color: white;
     font-size: large;
 }
 
@@ -197,11 +204,9 @@ input[type=submit] {
 
 input:focus {
     outline: none;
+    border: 1px solid #0dcaf0;
 }
 
-input[type=submit]:hover {
-    background-color: #45a049;
-}
 
 
 .customInputSignup {
@@ -240,6 +245,13 @@ input[type=submit]:hover {
 
 }
 
+#playBtn {
+    background-color: #008cff;
+}
+
+#playBtn:hover {
+    background-color: #002f56;
+}
 
 @media only screen and (max-width: 900px) {
     #playerNameShowDiv {

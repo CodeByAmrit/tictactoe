@@ -2,13 +2,12 @@ const sessionIdToUserMap = new Map()
 const jwt = require('jsonwebtoken')
 const secret = 'Amrit@Amrit@Amrit@123'
 
-function setUser (user) {
+function setUser (user) {  
   return jwt.sign(
     {
-      _id: user._id,
-      email: user.email,
-      first_name: user.first_name,
-      last_name: user.last_name
+      _id: user[0].userId,
+      email: user[0].email,
+      first_name: user[0].Name
     },
     secret
   )
@@ -23,9 +22,5 @@ function getUser (token) {
   }
 }
 
-function logoutUser (id) {
-  console.log(id)
-  sessionIdToUserMap.delete(id)
-}
 
-module.exports = { setUser, getUser, logoutUser }
+module.exports = { setUser, getUser }

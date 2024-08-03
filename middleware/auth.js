@@ -1,13 +1,13 @@
-const { getUser, logoutUser } = require('../services/oauth')
+const { getUser } = require('../services/oauth')
 
 async function restrictToLogin (req, res, next) {
   const userUId = req.cookies?.uid
-
+  console.log("middleware", req.cookies?.uid);
   try {
     if (userUId) {
       return res.redirect('/')
     }
-
+    
     const user = await getUser(userUId)
 
     if (user) {
@@ -15,6 +15,8 @@ async function restrictToLogin (req, res, next) {
     }
     // Set req.user to the retrieved user object
     req.user = user
+    
+    
     next() // Proceed to the next middleware or route handler
   } catch (error) {
     console.error('Error in restrictToLogin middleware:', error)
