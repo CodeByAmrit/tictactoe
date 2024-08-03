@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css?family=Kavoon');
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    border-radius: 10px;
+}
+
+body,
+body>div {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+div {
+    /* border: 1px solid rgb(255, 255, 255); */
+}
+
+a {
+    text-decoration: none;
+    color: white;
+
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    height: fit-content;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #24d7e1 !important;
+    background-color: #001323 !important;
+}
+
+.navbarCustom {
+    position: absolute;
+    font-size: 22px;
+    font-family: kavoon;
+    top: 0;
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+}
+
+.containerBody {
+    /* height: 80vh; */
+    width: 100%;
+    background-color: #001323;
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+    margin-top: 7rem;
+}
+
+.ttt,
+.left {
+    width: 50%;
+    height: 100%;
+    display: flex;
+
+}
+
+.grid-container {
+
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    background-color: #001323;
+}
+
+.alertPosition {
+    position: absolute !important;
+    top: 50px !important;
+}
+
+.PlayerImg {
+    width: 80px;
+    height: 80px;
+}
+
+#scoreBoard {
+    max-height: 400px;
+}
+
+#playerNameShowDiv {
+    width: 100%;
+    height: 98%;
+    max-height: 300px;
+    text-align: center;
+    margin-left: 20px;
+    font-size: larger;
+    overflow-y: auto;
+    border-radius: 5px;
+}
+
+.grid-item {
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #002f56;
+    font-size: 30px;
+    text-align: center;
+    margin: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    min-height: 70px;
+    min-width: 70px; */
+
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #002f56;
+    cursor: pointer;
+
+
+
+}
+
+.PlayerImg {
+    width: 70%;
+
+}
+
+.grid-item:hover {
+    scale: 1.02;
+    background-color: #004176;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.inputsName {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type=text],
+select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    background-color: #002f56 ;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: white ;
+    font-size: large;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    font-size: large;
+
+}
+
+
+input:focus {
+    outline: none;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+
+.customInputSignup {
+    outline: 0.5px solid rgb(209, 209, 209);
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    background-color: #ffffff !important;
+    border: 1px solid;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: rgb(19, 19, 19) !important;
+    font-size: large;
+}
+
+#gameDiv {
+    display: none;
+}
+
+#mainLogo {
+    max-height: 350px;
+    width: 100%;
+}
+
+#reload_btn {
+    display: none;
+}
+
+.customLogin {
+    height: 70%;
+    width: 100%;
+    display: flex;
+    padding-top: 50px !important;
+    justify-content: center;
+
+}
+
+
+@media only screen and (max-width: 900px) {
+    #playerNameShowDiv {
+        margin-top: 20px;
+        margin-left: 0px;
+    }
+
+    .containerBody {
+        flex-direction: column;
+    }
+
+    .left,
+    .ttt {
+        width: 100%;
+    }
+
+    .containerBody {
+        height: auto;
+    }
+}
