@@ -31,6 +31,6 @@ app.post('/move', (req, res) => {
 
 })
 
-app.listen(port, ip, () => {
-  console.log(`Server running at http://${ip}:${port}`)
+app.listen(port, () => {
+  console.log(`Server running at http://:${port}`)
 })
