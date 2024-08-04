@@ -180,18 +180,24 @@ async function getScoreTable (id) {
     const response = await fetch(`/scoretable/${id}`, {
       method: 'GET'
     })
-    let receivedData = await response.json()
-    receivedData.result.forEach(array => {
-      scoreBoard.innerHTML += `
-      <tr>
-        <th scope="row">${recordCounter}</th>
-        <td>${array.name}</td>
-        <td>${array.dateTime}</td>
-        <td>${array.result}</td>
-      </tr>`
-      recordCounter++
-      console.log(array)
-    })
+    try {
+      let receivedData = await response.json()
+      receivedData.result.forEach(array => {
+        scoreBoard.innerHTML += `
+        <tr>
+          <th scope="row">${recordCounter}</th>
+          <td>${array.name}</td>
+          <td>${array.dateTime}</td>
+          <td>${array.result}</td>
+        </tr>`
+        recordCounter++
+        console.log(array)
+      })
+      
+    } catch (error) {
+      console.log(error);   
+    }
+    
   }
 }
 
